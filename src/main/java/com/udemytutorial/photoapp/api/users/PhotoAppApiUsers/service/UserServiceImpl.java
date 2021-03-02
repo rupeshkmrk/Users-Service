@@ -21,11 +21,13 @@ public class UserServiceImpl implements UserService {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
-        //TODO : to be removed
 
+        //TODO : to be removed
         userEntity.setEncryptedPassword("test");
         userEntity.setUserId(String.valueOf(UUID.randomUUID()));
         userRepository.save(userEntity);
-        return null;
+
+        UserDto returnValue = modelMapper.map(userEntity, UserDto.class);
+        return returnValue;
     }
 }

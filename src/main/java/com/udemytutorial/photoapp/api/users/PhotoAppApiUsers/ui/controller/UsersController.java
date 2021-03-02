@@ -3,6 +3,7 @@ package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.controller;
 import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.service.UserService;
 import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.shared.UserDto;
 import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUserRequestModel;
+import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUserResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -31,10 +32,12 @@ public class UsersController {
     }
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
+    public ResponseEntity<CreateUserResponseModel> createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
         ModelMapper mapper = new ModelMapper();
         UserDto userDto = mapper.map(userRequestModel, UserDto.class);
-        userService.createUser(userDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+        UserDto createdUser = userService.createUser(userDto);
+
+        CreateUserResponseModel responseModel = mapper.map(createdUser, CreateUserResponseModel.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseModel);
     }
 }
