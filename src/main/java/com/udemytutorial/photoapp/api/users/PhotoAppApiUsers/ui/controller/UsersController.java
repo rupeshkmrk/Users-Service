@@ -1,6 +1,9 @@
 package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.controller;
 
+import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.service.UserService;
+import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.shared.UserDto;
 import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUserRequestModel;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,9 @@ public class UsersController {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/status/check")
     public String status() {
         return "User service running on port " + environment.getProperty("local.server.port");
@@ -24,6 +30,9 @@ public class UsersController {
 
     @PostMapping
     public String createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
+        ModelMapper mapper = new ModelMapper();
+        UserDto userDto = mapper.map(userRequestModel, UserDto.class);
+        userService.createUser(userDto);
         return "create user called";
     }
 }
