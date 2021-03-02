@@ -1,4 +1,4 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.model;
 
 public class CreateUserResponseModel {
 

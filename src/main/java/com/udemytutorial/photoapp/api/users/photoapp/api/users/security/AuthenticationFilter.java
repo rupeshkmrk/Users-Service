@@ -1,7 +1,7 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.security;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.LoginRequestModel;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.model.LoginRequestModel;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,7 +22,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             LoginRequestModel credentials = new ObjectMapper()
                     .readValue(request.getInputStream(), LoginRequestModel.class);
             return getAuthenticationManager().authenticate(
-                    new UsernamePasswordAuthenticationToken(credentials.getEmail(),
+                    new UsernamePasswordAuthenticationToken(credentials.getUsername(),
                             credentials.getPassword(),
                             new ArrayList<>())
             );
@@ -36,4 +36,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
     }
+
+
 }

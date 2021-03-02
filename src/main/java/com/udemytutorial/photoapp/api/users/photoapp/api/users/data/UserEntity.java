@@ -1,4 +1,4 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.data;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.data;
 
 import javax.persistence.*;
 

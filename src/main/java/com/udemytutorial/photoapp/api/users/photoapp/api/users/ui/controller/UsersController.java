@@ -1,9 +1,9 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.controller;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.controller;
 
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.service.UserService;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.shared.UserDto;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUserRequestModel;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUserResponseModel;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.service.UserService;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.shared.UserDto;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.model.CreateUserRequestModel;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.model.CreateUserResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -32,10 +32,10 @@ public class UsersController {
         return "User service running on port " + environment.getProperty("local.server.port");
     }
 
-    @PostMapping(
+    @PostMapping/*(
             consumes = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}
-    )
+    )*/
     public ResponseEntity<CreateUserResponseModel> createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
         ModelMapper mapper = new ModelMapper();
         UserDto userDto = mapper.map(userRequestModel, UserDto.class);

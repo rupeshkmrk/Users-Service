@@ -1,4 +1,4 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.shared;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.shared;
 
 import java.io.Serializable;
 

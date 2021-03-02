@@ -1,15 +1,18 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.service;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.service;
 
-import com.netflix.discovery.converters.Auto;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.data.UserEntity;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.data.UserRepository;
-import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.shared.UserDto;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.data.UserEntity;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.data.UserRepository;
+import com.udemytutorial.photoapp.api.users.photoapp.api.users.shared.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -33,5 +36,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
         return modelMapper.map(userEntity, UserDto.class);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = userRepository.findByEmail(username);
+        if (null == user) throw new UsernameNotFoundException("Invalid email");
+        return new User(username, user.getEncryptedPassword(), true, true, true, true, new ArrayList<>());
     }
 }

@@ -1,4 +1,4 @@
-package com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model;
+package com.udemytutorial.photoapp.api.users.photoapp.api.users.ui.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
