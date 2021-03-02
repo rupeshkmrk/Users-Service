@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
     @Override
     public UserDto createUser(UserDto userDetails) {
         ModelMapper modelMapper = new ModelMapper();
@@ -36,6 +35,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
         return modelMapper.map(userEntity, UserDto.class);
+    }
+
+    @Override
+    public UserDto getUserDetails(String email) {
+        var userDetails = userRepository.findByEmail(email);
+        if (null == userDetails) throw new UsernameNotFoundException("Invalid Email");
+        return new ModelMapper().map(userDetails, UserDto.class);
     }
 
     @Override
