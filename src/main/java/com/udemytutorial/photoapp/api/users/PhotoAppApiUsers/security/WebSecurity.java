@@ -31,6 +31,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**")
                 .hasIpAddress(environment.getProperty("gateway.ip"))
+                .and()
+                .addFilter(getAuthenticationFilter())
         ;
+    }
+
+    private AuthenticationFilter getAuthenticationFilter() throws Exception {
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        authenticationFilter.setAuthenticationManager(authenticationManager());
+        return authenticationFilter;
     }
 }
