@@ -6,6 +6,8 @@ import com.udemytutorial.photoapp.api.users.PhotoAppApiUsers.ui.model.CreateUser
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +31,10 @@ public class UsersController {
     }
 
     @PostMapping
-    public String createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
+    public ResponseEntity createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
         ModelMapper mapper = new ModelMapper();
         UserDto userDto = mapper.map(userRequestModel, UserDto.class);
         userService.createUser(userDto);
-        return "create user called";
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
