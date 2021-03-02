@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.MediaType;
 
 @RestController
 @RequestMapping("/users")
@@ -31,7 +32,10 @@ public class UsersController {
         return "User service running on port " + environment.getProperty("local.server.port");
     }
 
-    @PostMapping
+    @PostMapping(
+            consumes = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON},
+            produces = {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}
+    )
     public ResponseEntity<CreateUserResponseModel> createUser(@RequestBody @Valid CreateUserRequestModel userRequestModel) {
         ModelMapper mapper = new ModelMapper();
         UserDto userDto = mapper.map(userRequestModel, UserDto.class);
